@@ -1,0 +1,933 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Game9bit | Minecraft Creator</title>
+
+<meta name="description" content="Official Game9bit website — Minecraft gaming and animated videos.">
+<meta name="theme-color" content="#111b12">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Press+Start+2P&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#0b0f0b;
+    color:#fff;
+    font-family:Inter,Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+/* ================= BACKGROUND ================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-3;
+    background:
+        linear-gradient(rgba(10,15,10,.88),rgba(10,15,10,.96)),
+        radial-gradient(circle at 50% 0%,#315b27 0%,transparent 42%);
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    opacity:.08;
+    background-image:
+        linear-gradient(#fff 1px,transparent 1px),
+        linear-gradient(90deg,#fff 1px,transparent 1px);
+    background-size:50px 50px;
+    pointer-events:none;
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:100;
+    height:74px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+    background:rgba(7,10,7,.72);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(14px);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:#fff;
+    font-weight:900;
+    font-size:21px;
+}
+
+.logo-box{
+    width:39px;
+    height:39px;
+    background:#5fae42;
+    border:3px solid #2c6022;
+    box-shadow:
+        inset 0 -7px #3d7c2b,
+        0 0 25px rgba(95,174,66,.25);
+    position:relative;
+}
+
+.logo-box::before{
+    content:"";
+    position:absolute;
+    width:9px;
+    height:9px;
+    background:#172414;
+    left:7px;
+    top:9px;
+    box-shadow:17px 0 #172414;
+}
+
+.nav-links{
+    display:flex;
+    gap:32px;
+}
+
+.nav-links a{
+    color:#b9c1b9;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:#8cff62;
+}
+
+.nav-btn{
+    text-decoration:none;
+    color:#071006 !important;
+    background:#75d653;
+    padding:12px 19px;
+    border-radius:7px;
+    font-weight:800 !important;
+    box-shadow:0 5px 0 #3c782c;
+}
+
+.nav-btn:hover{
+    transform:translateY(2px);
+    box-shadow:0 3px 0 #3c782c;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:130px 20px 90px;
+    position:relative;
+}
+
+.hero-content{
+    max-width:900px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border:1px solid rgba(117,214,83,.35);
+    background:rgba(117,214,83,.08);
+    border-radius:100px;
+    color:#9be884;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:27px;
+}
+
+.dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#73d852;
+    box-shadow:0 0 12px #73d852;
+}
+
+.hero h1{
+    font-size:clamp(55px,10vw,125px);
+    line-height:.9;
+    font-weight:900;
+    letter-spacing:-7px;
+    text-transform:uppercase;
+    text-shadow:
+        0 5px 0 #172b13,
+        0 15px 40px rgba(0,0,0,.6);
+}
+
+.hero h1 span{
+    color:#75d653;
+}
+
+.hero p{
+    max-width:650px;
+    margin:32px auto;
+    color:#aab2aa;
+    font-size:18px;
+    line-height:1.7;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:13px;
+    flex-wrap:wrap;
+}
+
+.primary{
+    padding:15px 25px;
+    background:#75d653;
+    color:#071006;
+    border-radius:7px;
+    text-decoration:none;
+    font-weight:800;
+    transition:.25s;
+    box-shadow:0 5px 0 #3c782c;
+}
+
+.primary:hover{
+    transform:translateY(3px);
+    box-shadow:0 2px 0 #3c782c;
+}
+
+.secondary{
+    padding:15px 25px;
+    border:1px solid #333a33;
+    background:#111611;
+    color:white;
+    border-radius:7px;
+    text-decoration:none;
+    font-weight:700;
+    transition:.25s;
+}
+
+.secondary:hover{
+    border-color:#75d653;
+    color:#75d653;
+}
+
+/* ================= BLOCKS ================= */
+
+.blocks{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:100px;
+    overflow:hidden;
+    display:flex;
+    opacity:.35;
+}
+
+.block{
+    min-width:90px;
+    height:90px;
+    background:#4e8e36;
+    border:2px solid #315d25;
+    box-shadow:inset 0 -20px #315d25;
+}
+
+/* ================= SECTIONS ================= */
+
+section{
+    padding:110px 7%;
+}
+
+.section-head{
+    max-width:720px;
+    margin-bottom:45px;
+}
+
+.eyebrow{
+    color:#75d653;
+    text-transform:uppercase;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:3px;
+    margin-bottom:13px;
+}
+
+.section-head h2{
+    font-size:clamp(35px,5vw,60px);
+    letter-spacing:-2px;
+    margin-bottom:16px;
+}
+
+.section-head p{
+    color:#929a92;
+    line-height:1.7;
+}
+
+/* ================= VIDEOS ================= */
+
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.video-card{
+    background:#111511;
+    border:1px solid #252b25;
+    border-radius:12px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.video-card:hover{
+    transform:translateY(-7px);
+    border-color:#527b46;
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+
+.thumbnail{
+    aspect-ratio:16/9;
+    background:
+        linear-gradient(135deg,#1b3119,#4e853b);
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.thumbnail::before{
+    content:"";
+    position:absolute;
+    width:130px;
+    height:130px;
+    background:#76bd55;
+    transform:rotate(45deg);
+    opacity:.22;
+}
+
+.play{
+    position:relative;
+    width:57px;
+    height:57px;
+    border-radius:50%;
+    background:rgba(0,0,0,.72);
+    display:grid;
+    place-items:center;
+    z-index:2;
+}
+
+.play::after{
+    content:"";
+    margin-left:4px;
+    border-left:17px solid white;
+    border-top:10px solid transparent;
+    border-bottom:10px solid transparent;
+}
+
+.video-info{
+    padding:20px;
+}
+
+.video-info h3{
+    font-size:17px;
+    margin-bottom:9px;
+}
+
+.video-info p{
+    color:#777f77;
+    font-size:13px;
+}
+
+/* ================= ABOUT ================= */
+
+.about{
+    background:#0e120e;
+    border-top:1px solid #1e241e;
+    border-bottom:1px solid #1e241e;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.about-box{
+    min-height:330px;
+    border-radius:15px;
+    border:1px solid #293229;
+    background:
+        linear-gradient(145deg,#182416,#0d120d);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.about-box::before{
+    content:"GAME9BIT";
+    font-family:"Press Start 2P",monospace;
+    color:#75d653;
+    font-size:clamp(20px,4vw,45px);
+    transform:rotate(-8deg);
+    opacity:.8;
+    text-shadow:5px 5px #1e3d18;
+}
+
+.about-text p{
+    color:#9ca49c;
+    line-height:1.9;
+    font-size:16px;
+    margin-bottom:20px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:28px;
+}
+
+.stat{
+    padding:18px;
+    background:#121812;
+    border:1px solid #272e27;
+    border-radius:9px;
+}
+
+.stat strong{
+    display:block;
+    color:#75d653;
+    font-size:25px;
+}
+
+.stat span{
+    color:#777f77;
+    font-size:11px;
+}
+
+/* ================= SOCIALS ================= */
+
+.social-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.social{
+    text-decoration:none;
+    color:white;
+    background:#111611;
+    border:1px solid #272e27;
+    border-radius:10px;
+    padding:24px 18px;
+    transition:.25s;
+}
+
+.social:hover{
+    border-color:#75d653;
+    transform:translateY(-5px);
+}
+
+.social-icon{
+    font-size:27px;
+    margin-bottom:15px;
+}
+
+.social strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.social span{
+    color:#717971;
+    font-size:12px;
+}
+
+/* ================= CTA ================= */
+
+.cta{
+    text-align:center;
+    padding:130px 20px;
+}
+
+.cta h2{
+    font-size:clamp(40px,7vw,80px);
+    letter-spacing:-4px;
+    margin-bottom:18px;
+}
+
+.cta p{
+    color:#8e968e;
+    margin-bottom:30px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    border-top:1px solid #222822;
+    padding:30px 7%;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    color:#686f68;
+    font-size:12px;
+}
+
+footer a{
+    color:#75d653;
+    text-decoration:none;
+}
+
+/* ================= REVEAL ================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity .7s ease,transform .7s ease;
+}
+
+.reveal.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+    nav{
+        padding:0 5%;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero h1{
+        letter-spacing:-4px;
+    }
+
+    .video-grid{
+        grid-template-columns:1fr;
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+        gap:35px;
+    }
+
+    .social-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    section{
+        padding:80px 5%;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .hero h1{
+        font-size:55px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .social-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    footer{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <a href="#" class="logo">
+        <div class="logo-box"></div>
+        GAME9BIT
+    </a>
+
+    <div class="nav-links">
+        <a href="#videos">Videos</a>
+        <a href="#about">About</a>
+        <a href="#socials">Socials</a>
+    </div>
+
+    <a
+        class="nav-btn"
+        href="https://www.youtube.com/@Game9bit"
+        target="_blank"
+    >
+        YouTube ↗
+    </a>
+</nav>
+
+
+<!-- HERO -->
+<header class="hero">
+
+    <div class="hero-content reveal">
+
+        <div class="badge">
+            <span class="dot"></span>
+            MINECRAFT CREATOR
+        </div>
+
+        <h1>
+            GAME<span>9</span>BIT
+        </h1>
+
+        <p>
+            Minecraft adventures, animations and gaming content.
+            Enter the world of Game9bit.
+        </p>
+
+        <div class="hero-buttons">
+            <a
+                href="https://www.youtube.com/@Game9bit"
+                target="_blank"
+                class="primary"
+            >
+                ▶ Watch on YouTube
+            </a>
+
+            <a href="#socials" class="secondary">
+                All Socials ↓
+            </a>
+        </div>
+
+    </div>
+
+    <div class="blocks">
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+    </div>
+
+</header>
+
+
+<!-- VIDEOS -->
+<section id="videos">
+
+    <div class="section-head reveal">
+        <div class="eyebrow">Latest content</div>
+
+        <h2>Watch the latest.</h2>
+
+        <p>
+            Minecraft videos and animated adventures from Game9bit.
+        </p>
+    </div>
+
+    <div class="video-grid">
+
+        <a
+            href="https://www.youtube.com/@Game9bit"
+            target="_blank"
+            class="video-card reveal"
+            style="text-decoration:none;color:white"
+        >
+            <div class="thumbnail">
+                <div class="play"></div>
+            </div>
+
+            <div class="video-info">
+                <h3>Latest Minecraft Videos</h3>
+                <p>Watch on YouTube →</p>
+            </div>
+        </a>
+
+
+        <a
+            href="https://www.youtube.com/@Game9bit/shorts"
+            target="_blank"
+            class="video-card reveal"
+            style="text-decoration:none;color:white"
+        >
+            <div class="thumbnail">
+                <div class="play"></div>
+            </div>
+
+            <div class="video-info">
+                <h3>Game9bit Shorts</h3>
+                <p>Short Minecraft content →</p>
+            </div>
+        </a>
+
+
+        <a
+            href="https://www.youtube.com/@Game9bit/videos"
+            target="_blank"
+            class="video-card reveal"
+            style="text-decoration:none;color:white"
+        >
+            <div class="thumbnail">
+                <div class="play"></div>
+            </div>
+
+            <div class="video-info">
+                <h3>Explore the Channel</h3>
+                <p>Browse all videos →</p>
+            </div>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section class="about" id="about">
+
+    <div class="about-grid">
+
+        <div class="about-box reveal"></div>
+
+        <div class="about-text reveal">
+
+            <div class="eyebrow">About Game9bit</div>
+
+            <h2>Minecraft.<br>Animated.</h2>
+
+            <p>
+                Game9bit is a Minecraft-focused creator channel making
+                gaming and animated Minecraft content for viewers who
+                love blocky adventures and entertaining stories.
+            </p>
+
+            <p>
+                Explore the channel, watch the latest videos and follow
+                Game9bit across social platforms.
+            </p>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <strong>MC</strong>
+                    <span>MINECRAFT</span>
+                </div>
+
+                <div class="stat">
+                    <strong>YT</strong>
+                    <span>YOUTUBE</span>
+                </div>
+
+                <div class="stat">
+                    <strong>9B+</strong>
+                    <span>CHANNEL VIEWS*</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SOCIALS -->
+<section id="socials">
+
+    <div class="section-head reveal">
+
+        <div class="eyebrow">Stay connected</div>
+
+        <h2>Find Game9bit.</h2>
+
+        <p>
+            Follow the creator and keep up with new content.
+        </p>
+
+    </div>
+
+
+    <div class="social-grid">
+
+        <a
+            class="social reveal"
+            href="https://www.youtube.com/@Game9bit"
+            target="_blank"
+        >
+            <div class="social-icon">▶</div>
+            <strong>YouTube</strong>
+            <span>@Game9bit</span>
+        </a>
+
+
+        <!-- Replace these placeholder links -->
+
+        <a
+            class="social reveal"
+            href="#"
+            onclick="placeholder(event,'Discord')"
+        >
+            <div class="social-icon">◈</div>
+            <strong>Discord</strong>
+            <span>Community</span>
+        </a>
+
+
+        <a
+            class="social reveal"
+            href="#"
+            onclick="placeholder(event,'Instagram')"
+        >
+            <div class="social-icon">◎</div>
+            <strong>Instagram</strong>
+            <span>@Game9bit</span>
+        </a>
+
+
+        <a
+            class="social reveal"
+            href="#"
+            onclick="placeholder(event,'TikTok')"
+        >
+            <div class="social-icon">♪</div>
+            <strong>TikTok</strong>
+            <span>@Game9bit</span>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- CTA -->
+<section class="cta">
+
+    <div class="reveal">
+
+        <div class="eyebrow">Join the adventure</div>
+
+        <h2>Ready to play?</h2>
+
+        <p>
+            Watch Game9bit on YouTube and enter the Minecraft world.
+        </p>
+
+        <a
+            href="https://www.youtube.com/@Game9bit"
+            target="_blank"
+            class="primary"
+        >
+            Visit YouTube →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <span>
+        © 2026 Game9bit. All rights reserved.
+    </span>
+
+    <span>
+        Minecraft-inspired fan website
+    </span>
+
+</footer>
+
+
+<script>
+
+/* Scroll reveal */
+
+const observer = new IntersectionObserver(
+    entries => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting){
+                entry.target.classList.add("show");
+            }
+        });
+    },
+    {
+        threshold:.12
+    }
+);
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(el => observer.observe(el));
+
+
+/* Placeholder social links */
+
+function placeholder(event,name){
+
+    event.preventDefault();
+
+    alert(
+        name +
+        " link abhi add nahi kiya gaya.\n\n" +
+        "HTML mein placeholder URL ko actual Game9bit link se replace karo."
+    );
+}
+
+</script>
+
+</body>
+</html>
+```
